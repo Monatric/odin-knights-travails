@@ -1,0 +1,2 @@
+# Knights Travails
+The goal of this project is to create a function that shows the shortest path that a knight can take from point A to point B in a 8x8 dimension. This project also uses a similar data structure to binary tree, which are graphs.
