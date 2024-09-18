@@ -1,0 +1,62 @@
+Problem: Making the rules (class) for the Knight
+  Solution candidates:
+    1. Make a constant array that contains a knight's possible move
+      x+2, y+1
+      x+2, y-1
+      x+1, y+2
+      x+1, y-2
+      x-2, y+1
+      x-2, y-1
+      x-1, y+2
+      x-1, y-2
+      Test:
+      [4, 4]
+        [6, 5]
+        [6, 3]
+        [5, 6]
+        [5, 2]
+        [2, 5]
+        [2, 3]
+        [3, 6]
+        [3, 2]
+      Cases to look for:
+        x and y cannot exceed below 0 and 7
+        The number combinations are always 1 and 2, both can use add or minus or both.
+
+Problem: Assigning coordinates to nodes
+  I don't exactly know what to do when building a graph. As Emiel said, the squares and the board are separate from the graph and the nodes. The nodes will contain the coordinates of the squares. The nodes are in the graph. What came up to me recently is that how will I store these nodes that currently do not have a connection? I imagine it looks like a floating nodes in the air waiting for the edges to latch on to. If there are no edges just yet, how would I store them?
+  Solution candidates:
+    1. Make a list (hash) that stores a node and its coordinates.
+      There will be 64 keys which are nodes, each with value starting from [0][0] to [7][7]
+        (I think nodes being values and coordinates being keys are better)
+      A directed graph will be initialized at the starting point of the knight.
+      Find all the moves possible, store in arrays, find which array has the shortest length (more pseudocode for this later)
+
+      If keys and values are nodes and coordinates respectively:
+        When #knight_moves is called with the starting coord,
+        we can find which node has that value.
+        That will be the starting point of the graph.
+        In my not-yet-thought-out algorithm in finding the shortest path,
+        I assume that it has to find all paths of the knight without going back.
+        It will store all the paths, and we can recursively search or find the shortest path.
+        However I think such algorithm will take so long, which leads me to another question:
+          If there is a way to find the shortest path
+
+        To start with this, create a Graph class containing four basic methods
+          #add_node - which will simply add nodes to a hash. Perhaps name it squareN where N is the number of node. Its value will be an empty Set
+          #add_connection - which will search for the origin and insert the destination in the set in case it doesnt exist(?). Else simply insert the destination in the origin
+          #build_graph - so that everything is already set.
+          
+          I think these methods should be just for conveniency when the knight reaches its destination, so  that we can reuse the graph with new connections.
+          #remove_node
+          #remove_connection
+          Then, create a Node class containing two properties:
+            its data (coords)
+            reference to the node it's connected to
+
+
+Problem: Algorithm for knight's shortest path
+      
+Another thing to consider: Just realized, why is the function example is [0, 1], not [0][1]? How else would call the position that way or is it just a simple representation?
+
+Problem: Making the rules (class) for the Board
