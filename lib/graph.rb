@@ -14,11 +14,8 @@ class Graph
     board.structure.each do |row|
       y = 0
       row.each do |col|
-        node = Node.new
-        node.name = "V#{i}"
-        node.data = board.structure[x][y]
+        node = Node.new("V#{i}", board.structure[x][y])
         add_node(node)
-        puts "#{x} #{y}"
         y += 1
         i += 1
       end
@@ -28,6 +25,14 @@ class Graph
 
   def add_node(node_to_add)
     list[node_to_add] = Set.new if list[node_to_add].nil?
+    list
+  end
+
+  def add_connection(origin, destination)
+    add_node(origin)
+    add_node(destination)
+
+    list[origin] << destination
     list
   end
 end
