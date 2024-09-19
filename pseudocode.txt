@@ -45,7 +45,8 @@ Problem: Assigning coordinates to nodes
         To start with this, create a Graph class containing four basic methods
           #add_node - which will simply add nodes to a hash. Perhaps name it squareN where N is the number of node. Its value will be an empty Set
           #add_connection - which will search for the origin and insert the destination in the set in case it doesnt exist(?). Else simply insert the destination in the origin
-          #build_graph - so that everything is already set.
+          #build_graph - so that everything is already set:
+            Instantiate a board
           
           I think these methods should be just for conveniency when the knight reaches its destination, so  that we can reuse the graph with new connections.
           #remove_node
