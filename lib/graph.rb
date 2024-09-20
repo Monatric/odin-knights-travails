@@ -35,4 +35,12 @@ class Graph
     list[origin] << destination
     list
   end
+
+  def find_node_by_data(data)
+    list.keys.find { |node| node.data == data }
+  end
+
+  def find_node_by_name(name)
+    list.keys.find { |node| node.name == name }
+  end
 end
