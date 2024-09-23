@@ -43,4 +43,12 @@ class Graph
   def find_node_by_name(name)
     list.keys.find { |node| node.name == name }
   end
+
+  def print_graph_data
+    puts "{"
+    list.each do |key, val|
+      puts "#{key.data} => #{val}"
+    end
+    puts "}"
+  end
 end
