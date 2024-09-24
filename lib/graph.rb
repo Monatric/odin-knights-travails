@@ -14,7 +14,7 @@ class Graph
     board.structure.each do |row|
       y = 0
       row.each do |col|
-        node = Node.new("V#{i}", board.structure[x][y])
+        node = Node.new("V#{i}", "[#{x}, #{y}]")
         add_node(node)
         y += 1
         i += 1
@@ -29,8 +29,8 @@ class Graph
   end
 
   def add_connection(origin, destination)
-    add_node(origin)
-    add_node(destination)
+    # add_node(origin)
+    # add_node(destination)
 
     list[origin] << destination
     list
@@ -50,5 +50,8 @@ class Graph
       puts "#{key.data} => #{val}"
     end
     puts "}"
+  end
+
+  def knight_moves(origin, destination)
   end
 end
