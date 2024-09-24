@@ -57,6 +57,49 @@ Problem: Assigning coordinates to nodes
 
 
 Problem: Algorithm for knight's shortest path
+Solution candidate:
+  So there's a constant of values declared that a knight move can do.
+  Idea is since there are 8 moves, say we start from [0, 1],
+  then use the first move possible. That's the first path.
+  Then use the second move possible, there goes the second path. 
+  So on until there's no more move possible. (Keeping in mind of two cases: exceeding 00 & 77 and it has been visited)
+  When a particular path reaches the destination, entire process stops.
+  Get that path and print out each steps from origin to destination.
+
+  Level 2 pseudocode (i just made this up):
+    Make a constant array of knight_options
+      KNIGHT_OPTIONS = [
+        [2, 1],
+        [2, -1],
+        [1, 2],
+        [1, -2],
+        [-2, 1],
+        [-2, -1],
+        [-1, 2],
+        [-1, -2]
+      ]
+    Make the #knight_moves(origin, destination)
+      def knight_moves(origin, destination)
+        origin = find_node_by_data(origin)
+        prev_move = origin
+        queue = []
+        queue.push(origin)
+        until destination is found
+          next_move = KNIGHT_OPTIONS.each do |move|
+            front_node = queue.shift  
+            # get the next coordinates to find the next possible move
+            next_x = (front_node[0] + move[0])
+            next_y = (front_node[1] + move[1])
+            next_coord = [next_x, next_y]
+            push move in queue unless move is greater than [7, 7] or less than [0, 0]
+            call #add_connection
+              - might want to remove the first 2 lines because unnecessary
+              - set destination's @prev to prev_move
+            end
+          end
+        take the destination and take its previous nodes
+        print them
+      end
       
 Another thing to consider: Just realized, why is the function example is [0, 1], not [0][1]? How else would call the position that way or is it just a simple representation?
 
