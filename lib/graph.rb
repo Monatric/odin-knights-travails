@@ -1,5 +1,16 @@
 # Building a graph and its functionality
 class Graph
+  KNIGHT_OPTIONS = [
+    [2, 1],
+    [2, -1],
+    [1, 2],
+    [1, -2],
+    [-2, 1],
+    [-2, -1],
+    [-1, 2],
+    [-1, -2]
+  ]
+
   attr_accessor :list, :board
 
   def initialize
@@ -14,7 +25,7 @@ class Graph
     board.structure.each do |row|
       y = 0
       row.each do |col|
-        node = Node.new("V#{i}", "[#{x}, #{y}]")
+        node = Node.new("V#{i}", [x, y])
         add_node(node)
         y += 1
         i += 1
@@ -53,5 +64,29 @@ class Graph
   end
 
   def knight_moves(origin, destination)
+    origin = find_node_by_data(origin)
+    queue = []
+    queue.push(origin)
+    until queue[0] == find_node_by_data(destination)
+      front_node = queue.shift
+      front_data = front_node.data
+      p queue
+      next_move = KNIGHT_OPTIONS.each do |move|
+        next_x = (front_data[0] + move[0])
+        next_y = (front_data[1] + move[1])
+        next_coord = [next_x, next_y]
+        unless exceeds_board?(next_coord)
+          queue.push(find_node_by_data(next_coord))
+          add_connection(front_node, find_node_by_data(next_coord))
+        end
+      end
+    end
+  end
+  # stopped from here. Next task is give it more tests if it will work and try to print the path
+
+  def exceeds_board?(move)
+    return true if move[0].negative? || move[0] > 7 || move[1].negative? || move[1] > 7
+
+    false
   end
 end
