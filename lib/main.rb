@@ -14,5 +14,5 @@ graph = Graph.new
 # graph.add_connection("V0", "V3")
 
 # puts graph.list[v0]
-graph.knight_moves([0, 0], [1, 2])
+graph.knight_moves([3, 3], [4, 3])
 # graph.print_graph_data

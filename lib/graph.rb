@@ -64,6 +64,9 @@ class Graph
     origin = find_node_by_data(origin)
     queue = []
     queue.push(origin)
+    visited_nodes = Set.new << origin
+    # # current = 0
+    # maximum = destination[0] + destination[1]
     until queue[0] == find_node_by_data(destination)
       front_node = queue.shift
       front_data = front_node.data
@@ -73,26 +76,31 @@ class Graph
         next_coord = [next_x, next_y]
         next if exceeds_board?(next_coord)
 
+        next if visited_nodes.include?(find_node_by_data(next_coord))
+
+        visited_nodes.add(find_node_by_data(next_coord))
+
         find_node_by_data(next_coord).prev = front_node
-        # p find_node_by_data(next_coord).prev
         queue.push(find_node_by_data(next_coord))
         add_connection(front_node, find_node_by_data(next_coord))
       end
     end
-    test = list.values.select do |e|
-      find_node_by_data(destination) if e.include?(find_node_by_data(destination))
-    end
-    test2 = test[0].to_a.select { |e| e if e.data == destination }
-    # p list[find_node_by_data([0, 0])].include?(find_node_by_data(destination))
-    # p test2
-    # dest = test2.each { |e| p e.data }
-    print_path(test2)
+    test3 = find_node_in_sets(find_node_by_data(destination))
+    print_path(test3)
   end
 
-  # stopped from here. Next task is give it more tests if it will work and try to print the path
-  # need to think of how to mkae knights not go back
+  def find_node_in_sets(node)
+    list.each_value do |set|
+      return node if set.include?(node)
+    end
+    nil
+  end
+
   def print_path(destination)
-    p destination[0].prev.prev.prev.prev.prev.prev.prev
+    p destination.data
+    return destination.data if destination.prev.nil?
+
+    print_path(destination.prev)
   end
 
   def exceeds_board?(move)
