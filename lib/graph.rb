@@ -40,9 +40,6 @@ class Graph
   end
 
   def add_connection(origin, destination)
-    # add_node(origin)
-    # add_node(destination)
-
     list[origin] << destination
     list
   end
@@ -70,14 +67,11 @@ class Graph
     until queue[0] == find_node_by_data(destination)
       front_node = queue.shift
       front_data = front_node.data
-      p "Q #{queue}"
       KNIGHT_OPTIONS.each do |move|
         next_x = (front_data[0] + move[0])
         next_y = (front_data[1] + move[1])
         next_coord = [next_x, next_y]
         next if exceeds_board?(next_coord)
-
-        p next_coord
 
         find_node_by_data(next_coord).prev = front_node
         # p find_node_by_data(next_coord).prev
