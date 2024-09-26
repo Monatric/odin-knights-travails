@@ -58,7 +58,7 @@ class Graph
   def print_graph_data
     puts "{"
     list.each do |key, val|
-      puts "#{key.data} => #{val}"
+      puts "\t#{key.data} => #{val}"
     end
     puts "}"
   end
@@ -70,19 +70,36 @@ class Graph
     until queue[0] == find_node_by_data(destination)
       front_node = queue.shift
       front_data = front_node.data
-      p queue
-      next_move = KNIGHT_OPTIONS.each do |move|
+      p "Q #{queue}"
+      KNIGHT_OPTIONS.each do |move|
         next_x = (front_data[0] + move[0])
         next_y = (front_data[1] + move[1])
         next_coord = [next_x, next_y]
-        unless exceeds_board?(next_coord)
-          queue.push(find_node_by_data(next_coord))
-          add_connection(front_node, find_node_by_data(next_coord))
-        end
+        next if exceeds_board?(next_coord)
+
+        p next_coord
+
+        find_node_by_data(next_coord).prev = front_node
+        # p find_node_by_data(next_coord).prev
+        queue.push(find_node_by_data(next_coord))
+        add_connection(front_node, find_node_by_data(next_coord))
       end
     end
+    test = list.values.select do |e|
+      find_node_by_data(destination) if e.include?(find_node_by_data(destination))
+    end
+    test2 = test[0].to_a.select { |e| e if e.data == destination }
+    # p list[find_node_by_data([0, 0])].include?(find_node_by_data(destination))
+    # p test2
+    # dest = test2.each { |e| p e.data }
+    print_path(test2)
   end
+
   # stopped from here. Next task is give it more tests if it will work and try to print the path
+  # need to think of how to mkae knights not go back
+  def print_path(destination)
+    p destination[0].prev.prev.prev.prev.prev.prev.prev
+  end
 
   def exceeds_board?(move)
     return true if move[0].negative? || move[0] > 7 || move[1].negative? || move[1] > 7
