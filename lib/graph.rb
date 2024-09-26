@@ -81,11 +81,15 @@ class Graph
     nil
   end
 
-  def print_path(destination)
-    p destination.data
-    return destination.data if destination.prev.nil?
+  def print_path(destination, count = 1)
+    if destination.prev.nil?
+      puts "You made it in #{count} moves!  Here's your path:"
+      p destination.data
+      return
+    end
 
-    print_path(destination.prev)
+    print_path(destination.prev, count + 1)
+    p destination.data
   end
 
   def exceeds_board?(move)
