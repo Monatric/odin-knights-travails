@@ -1,9 +1,8 @@
 # Node
 class Node
-  attr_accessor :name, :data, :prev
+  attr_accessor :data, :prev
 
-  def initialize(name, data)
-    @name = name
+  def initialize(data)
     @data = data
     @prev = nil
   end
