@@ -57,23 +57,21 @@ class Graph
     until queue[0] == find_node_by_data(destination)
       front_node = queue.shift
       front_data = front_node.data
-      KNIGHT_OPTIONS.each do |move|
-        next_x = (front_data[0] + move[0])
-        next_y = (front_data[1] + move[1])
-        next_coord = [next_x, next_y]
-        next if exceeds_board?(next_coord)
-
-        next if visited_nodes.include?(find_node_by_data(next_coord))
-
-        visited_nodes.add(find_node_by_data(next_coord))
-
-        find_node_by_data(next_coord).prev = front_node
-        queue.push(find_node_by_data(next_coord))
-        add_connection(front_node, find_node_by_data(next_coord))
-      end
+      insert_knight_moves(front_node, front_data, visited_nodes, queue)
     end
-    test3 = find_node_in_sets(find_node_by_data(destination))
-    print_path(test3)
+    print_path(find_node_in_sets(find_node_by_data(destination)))
+  end
+
+  def insert_knight_moves(front_node, front_data, visited_nodes, queue)
+    KNIGHT_OPTIONS.each do |move|
+      next_coord = [front_data[0] + move[0], front_data[1] + move[1]]
+      next if exceeds_board?(next_coord) || visited_nodes.include?(find_node_by_data(next_coord))
+
+      visited_nodes.add(find_node_by_data(next_coord))
+      find_node_by_data(next_coord).prev = front_node
+      queue.push(find_node_by_data(next_coord))
+      add_connection(front_node, find_node_by_data(next_coord))
+    end
   end
 
   def find_node_in_sets(node)
