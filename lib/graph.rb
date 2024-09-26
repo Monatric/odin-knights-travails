@@ -45,10 +45,6 @@ class Graph
     list.keys.find { |node| node.data == data }
   end
 
-  def find_node_by_name(name)
-    list.keys.find { |node| node.name == name }
-  end
-
   def knight_moves(origin, destination)
     origin = find_node_by_data(origin)
     queue = []
