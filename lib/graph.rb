@@ -9,7 +9,7 @@ class Graph
     [-2, -1],
     [-1, 2],
     [-1, -2]
-  ]
+  ].freeze
 
   attr_accessor :list, :board
 
@@ -20,15 +20,12 @@ class Graph
   end
 
   def build_graph
-    i = 0
     x = 0
     board.structure.each do |row|
       y = 0
-      row.each do |col|
-        node = Node.new("V#{i}", [x, y])
-        add_node(node)
+      row.each do
+        add_node(Node.new([x, y]))
         y += 1
-        i += 1
       end
       x += 1
     end
@@ -52,21 +49,11 @@ class Graph
     list.keys.find { |node| node.name == name }
   end
 
-  def print_graph_data
-    puts "{"
-    list.each do |key, val|
-      puts "\t#{key.data} => #{val}"
-    end
-    puts "}"
-  end
-
   def knight_moves(origin, destination)
     origin = find_node_by_data(origin)
     queue = []
     queue.push(origin)
     visited_nodes = Set.new << origin
-    # # current = 0
-    # maximum = destination[0] + destination[1]
     until queue[0] == find_node_by_data(destination)
       front_node = queue.shift
       front_data = front_node.data
